@@ -3,7 +3,7 @@
 % Penalty function is selected to be the quadric function
 % P(x, R) = x1 ^ 2 + x2 ^ 2 + (x1 + x2 - 2) ^ 2 * miu
 
-function OptimisationBasedOnPenaltyFunction
+function EqualityConstraintPenaltyFunction
     figure(1); hold on; grid on
     figure(2); hold on; grid on; axis([-10 10 -10 10 -1 100])
     

@@ -1,0 +1,12 @@
+Model
+	Variables
+		x = 1, >=0, <=5
+		y = 1, >=0, <=4
+	End Variables
+
+	Equations
+		2.0*x - 8.0*y + 15.0 >= 0
+		29.0 - 2.0*y - 8.0*x >= 0
+		minimize -x - y
+	End Equations
+End Model

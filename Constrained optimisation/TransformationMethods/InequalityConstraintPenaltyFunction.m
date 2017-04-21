@@ -8,7 +8,7 @@ function InequalityConstraintPenaltyFunction
     figure(2); hold on; grid on; axis([-10 10 -10 10 -1 100])
     
     miu = 1;
-    epsl = 0.001;
+    epsl = 0.01;
     
     [X, Y] = meshgrid(-10:.5:10);
     
@@ -56,13 +56,13 @@ end
 
 % Karush-Kuhn-Tucker Theorem should apply to the solution so we dont have to check if the minimum point 
 % is in the feasible area?
-function localMinimum = gradientDescent(objFunction, miu, epsl, start_point)
+function localMinimum = gradientDescent(functionGradient, miu, epsl, start_point)
     previous_point = start_point;
     next_point = start_point;
     delta = Inf;
     
     while delta >= epsl
-        next_point = previous_point - (epsl / 10) .* objFunction(previous_point, miu);
+        next_point = previous_point - (epsl / 10) .* functionGradient(previous_point, miu);
         delta = pdist([next_point; previous_point], 'euclidean');
         
         figure(1)

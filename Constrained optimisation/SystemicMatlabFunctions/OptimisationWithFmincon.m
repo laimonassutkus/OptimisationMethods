@@ -4,9 +4,9 @@
 function OptimisationWithFmincon
     hold on
     grid on
-    axis ([-2.2 2.2 -2.2 2.2 -5 20])
+    axis ([-10 10 -10 10 -10 20])
     % initial guess
-    x0 = [-2 2];
+    x0 = [-2 0];
 
     options = optimset('LargeScale', 'off', 'Display', 'iter');
 
@@ -18,7 +18,7 @@ function OptimisationWithFmincon
     disp('Function value: '); disp(fval)
     disp('XY values: '); disp(x)
     
-    [X, Y] = meshgrid(-2:.1:2);
+    [X, Y] = meshgrid(-11:.5:11);
     % plot objfun
     Z = exp(X) .* (4 .* X .^ 2 + 2 .* Y .^ 2 + 4 .* X .* Y + 2 .* Y + 1);
     surf(X, Y, Z, 'FaceColor', [0.5 0 1]);
