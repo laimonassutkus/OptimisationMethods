@@ -4,8 +4,7 @@
 % P(x, R) = x1 ^ 2 + x2 ^ 2 + (x1 + x2 - 2) ^ 2 * miu
 
 function EqualityConstraintPenaltyFunction
-    figure(1); hold on; grid on
-    figure(2); hold on; grid on; axis([-10 10 -10 10 -1 100])
+    figure(1); hold on; grid on; axis([-10 10 -10 10])
     
     miu = 1;
     epsl = 0.001;
@@ -14,13 +13,7 @@ function EqualityConstraintPenaltyFunction
     
     F = X .^ 2 + Y .^ 2;
     
-    figure(1)
     contour(X, Y, F, 50, 'Color', [0.5 0.6 0.35], 'LineWIdth', 2);
-    
-    figure(2)
-    surf(X, Y, F, 'FaceColor', [0.5 0.6 0.35]);
-    alpha(0.75)
-    view(15, 30)
     
     start_minimum = gradientDescent(@(x, miu) penaltyFunctionGradient(x, miu), miu, epsl, [-4 -8]);
         disp('Minimum: '); disp(start_minimum)
@@ -36,13 +29,13 @@ function EqualityConstraintPenaltyFunction
     
     P = X .^ 2 + Y .^ 2 + (X + Y - 2) .^ 2 .* miu;
     
-    figure(1)
     contour(X, Y, P, 50, 'Color', [0.75 0 0.9]);
     
-    figure(2)
-    surf(X, Y, P, 'FaceColor', [0.75 0 0.9]);
-    alpha(0.75)
-    view(15, 30)
+    % plot constraint function
+    x = -10:.5:10;
+    y = 2 - x;
+    plot(x, y, 'r')
+    disp(miu)
 end
 
 function G = penaltyFunctionGradient(X, miu)
@@ -59,7 +52,6 @@ function localMinimum = gradientDescent(objFunction, miu, epsl, start_point)
         next_point = previous_point - (epsl / 10) .* objFunction(previous_point, miu);
         delta = pdist([next_point; previous_point], 'euclidean');
         
-        figure(1)
         plot([previous_point(1), next_point(1)], [previous_point(2), next_point(2)],'r', ...
             [previous_point(1), next_point(1)], [previous_point(2), next_point(2)],'ro')
         
