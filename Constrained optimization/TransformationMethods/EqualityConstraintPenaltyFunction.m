@@ -15,8 +15,7 @@ function EqualityConstraintPenaltyFunction
     
     contour(X, Y, F, 50, 'Color', [0.5 0.6 0.35], 'LineWIdth', 2);
     
-    start_minimum = gradientDescent(@(x, miu) penaltyFunctionGradient(x, miu), miu, epsl, [-4 -8]);
-        disp('Minimum: '); disp(start_minimum)
+    start_minimum = [-10 0];
         
     dist = Inf;
     while dist >= epsl

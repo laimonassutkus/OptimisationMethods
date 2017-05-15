@@ -15,7 +15,7 @@ function InequalityConstraintPenaltyFunction
     
     zerosMatrix = zeros(size(objFun));
     penFun = X + Y - 2;
-    quadricIneqPenFun = min(penFun, zerosMatrix);
+    quadricIneqPenFun = max(penFun, zerosMatrix);
         
     dist = Inf;
     index = 1;

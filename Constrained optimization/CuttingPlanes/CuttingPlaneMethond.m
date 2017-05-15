@@ -1,34 +1,34 @@
 function CuttingPlaneMethond
+    close all
+    
     addpath('.\..\..\Utility')
     addpath('.\..\..\Utility\APMonitor toolbox')
 
-    subplot(1,2,1); hold on; grid on; axis([0 5 0 4 -20 10])
-    subplot(1,2,2); hold on; grid on; axis([-1 6 -1 6 -20 10])
+    figure(1); hold on; grid on; axis([-1 6 -1 6])
     
-    [minimum, Y] = meshgrid(0:0.5:5);
-    Z = objFun({minimum Y});
-    C1 = conFun1({minimum Y});
-    C2 = conFun2({minimum Y});
+    [X, Y] = meshgrid(-1:0.1:6);
+    Z = objFun({X Y});
     
-    subplot(1,2,1);
-    surf(minimum, Y, Z, 'FaceColor', [0 0 1]);
-    surf(minimum, Y, C1, 'FaceColor', [1 0.4 0]);
-    surf(minimum, Y, C2, 'FaceColor', [1 0 0.4]);
-    alpha(0.9)
+    % Constraint 1: 0 <= 2 .* X - Y .^ 2 - 1;
+    % Constraint 2: 0 <= 9 - 0.8 .* X .^ 2 - 2 .* Y;
+    
+    constraint1_x = (-Y.^2 -1) ./ -2;
+    constraint2_y = (9 - 0.8 .* X .^ 2) ./ 2;
+    
+    % plot functions
+    contour(X, Y, Z, 20, 'k');
+    plot(X(1, :), constraint2_y(1, :), 'r'); 
+    plot(constraint1_x(:, 1), Y(:, 1), 'r');
+
+    rectangle('Position', [0 0 5 4])
+    
     legend('Main function', 'Constraint 2x-y^2-1>=0', 'Constraint 9-0.8x^2-2y>=0')
     
-    subplot(1,2,2);
-    [x1, y1, z1] = Intersection(minimum, Y, Z, C1);
-    line(x1, y1, arrayfun(@(x) 0, z1), 'Color', [1 0.4 0], 'LineWidth', 3)
-    
-    [x2, y2, z2] = Intersection(minimum, Y, Z, C2);
-    line(x2, y2, arrayfun(@(x) 0, z2), 'Color', [1 0 0.4], 'LineWidth', 3)
-    
-    rectangle('Position', [0 0 5 4])
-    for i = 1:20
+    for i = 1:5
+        drawnow;
         apm_ans = apm_solve('objFun', 3);
         minimum = [apm_ans.values(1) apm_ans.values(2)];
-        plot(apm_ans.values(1), apm_ans.values(2), 'go', 'LineWidth', 2);
+        plot(apm_ans.values(1), apm_ans.values(2), 'go');
 
         % identify mostly violated constraint
         C1 = conFun1({apm_ans.values(1) apm_ans.values(2)});
@@ -47,7 +47,8 @@ function CuttingPlaneMethond
         end
         
         vpa(f, 3)
-        ezplot(vpa(f, 3));
+        h = ezplot(vpa(f, 3));
+        set(h, 'Color', 'blue')
     end
 end
 

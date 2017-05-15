@@ -5,6 +5,9 @@ Model
 	End Variables
 
 	Equations
+		14.1 - 2.0*y - 4.04*x >= 0
+		2.0*x - 4.93*y + 5.07 >= 0
+		16.1 - 2.0*y - 4.75*x >= 0
 		2.0*x - 8.0*y + 15.0 >= 0
 		29.0 - 2.0*y - 8.0*x >= 0
 		minimize -x - y
