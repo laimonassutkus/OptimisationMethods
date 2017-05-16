@@ -1,5 +1,7 @@
 % Simulated Annealing Algorithm
 function [x,fval] = SAA(func)
+    addpath(genpath('./FunctionsToMinimize'))
+
     if isempty(func)
         figure(1); hold on; grid on;
         Levi13('graphical')

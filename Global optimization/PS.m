@@ -1,5 +1,7 @@
 % Particle Swarm
 function [x,fval] = PS(func)
+    addpath(genpath('./FunctionsToMinimize'))
+
     if isempty(func)
         figure(1); hold on; grid on;
         Easom('graphical')

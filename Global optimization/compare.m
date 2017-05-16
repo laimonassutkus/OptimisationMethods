@@ -1,5 +1,6 @@
 function compare
 % compare Genetic Algorithm, Simulated Annealing Algorithm and Particle Swarm Algorithm
+addpath(genpath('./FunctionsToMinimize'))
 
 disp('================= Ackley function: =================')
 single_compare(Ackley('function'))
